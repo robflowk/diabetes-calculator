@@ -30,13 +30,12 @@ const formSchema = z.object({
 
 type FormType = z.infer<typeof formSchema>;
 
+
+//TODO current behaviour between zod coercion and input fields with react-hook-form 
+//leads to inputs changing from uncontrolled to controlled. maybe find more elegance later.
 export default function Home() {
   const form = useForm<FormType>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      carbsPer100g: 0,
-      weight: 0,
-    },
+    resolver: zodResolver(formSchema)
   });
 
   const [submittedValue, setShowResult] = useState<FormType>();
@@ -65,7 +64,7 @@ export default function Home() {
                   <FormItem>
                     <FormLabel>100g des Lebensmittel enthalten</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} />
+                      <Input type="number" placeholder="0" {...field} />
                     </FormControl>
                     <FormDescription>Gramm Kohlenhydrate</FormDescription>
                     <FormMessage />
@@ -79,7 +78,7 @@ export default function Home() {
                   <FormItem>
                     <FormLabel>Portion</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} />
+                      <Input type="number"  placeholder="0"{...field} />
                     </FormControl>
                     <FormDescription>Gramm Kohlenhydrate</FormDescription>
                     <FormMessage />
